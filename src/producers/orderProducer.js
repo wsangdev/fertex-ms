@@ -1,12 +1,6 @@
-import kafka from 'kafkajs'
+import { producer } from "../config/kafka.js";
 
-const kafka = new kafka({
-  clientId: 'order-ms',
-  brokers: [process.env.KAFKA_BROKER] //ESTO DEBE ESTAR EN MI ENV
-})
-
-const producer = kafka.producer();
-
+// Responsaibilidad Unica: Productor que Publica Eventos
 const publishOrderCreated = async(order) => {
   await producer.connect();
   await producer.send({

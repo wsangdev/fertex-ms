@@ -1,9 +1,11 @@
-import publishOrderCreated from "../producers/orderProducer"
+import publishOrderCreated from "../producers/orderProducer.js"
 
+export const createOrder = async (orderData) => {
+  /* LOGICA DE NEGOCIO */
+  //  1. Creacion de la ORDEN en la Base de Datos
+  //  2. Llama al Productor para Publicar el Evento
 
-const createOrder = async (orderData) => {
-  // logica para guardar el orden el la base de datos 
-  const saveOrder = { id: Date.now(), ...orderData }
+  const saveOrder = { ...orderData,  id: Date.now() };
 
   try {
     // PUBLICACION DEL EVENTO A KAFKA
@@ -15,5 +17,3 @@ const createOrder = async (orderData) => {
     throw err
   }
 }
-
-export default createOrder

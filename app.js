@@ -1,14 +1,18 @@
-import bodyParser from 'body-parser'
 import express from 'express'
+import api from './src/api/index.js'
+import initKafka from './src/config/initkafka.js'
 
 const app = express()
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 3000
 
-app.use(bodyParser.json())
+app.use(express.json())
 
-//RUTAS 
-app.use('/api/orders', order)
+// Inicializando KAFKA
+initKafka();
 
+//RUTAS General de API
+app.use('/api', api )
 
-
-app.listen()
+app.listen(PORT, () => {
+  console.log(`server listen in port ${PORT}`)
+})
